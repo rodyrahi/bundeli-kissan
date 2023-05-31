@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+<body style="font-family: 'Rubik', sans-serif;">
+  <%- include('./partials/navbar.ejs') %>
+
+  <div class="container">
+    <div class="col">
+
+      <div class="card mb-4 text-primary" style="border-radius: 25px;  ">
+        <div class="card-body p-4">
+
+
+          <div class="d-flex justify-content-between mb-1 ">
+            <div>
+              <h2 class="display-2"><strong><%=parseInt(weather.main.temp-273.15) %>°C</strong></h2>
+              <p class="text-primary mb-0"><%= weather.weather[0].main %></p>
+
+              <p class=" text-info mb-0">Madhya Pradesh</p>
+            </div>
+            <div class="tex">
+              <div class="m-3 ">
+                <% if (weather.weather[0].icon === '01d') { %>
+                <i class="fas fa-sun" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '01n') { %>
+                <i class="fas fa-moon" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '02d') { %>
+                <i class="fas fa-cloud-sun" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '02n') { %>
+                <i class="fas fa-cloud-moon" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '03d' || weather.weather[0].icon === '03n' || weather.weather[0].icon === '04d' || weather.weather[0].icon === '04n') { %>
+                <i class="fas fa-cloud" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '09d' || weather.weather[0].icon === '09n') { %>
+                <i class="fas fa-cloud-showers-heavy" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '10d' || weather.weather[0].icon === '10n') { %>
+                <i class="fas fa-cloud-rain" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '11d' || weather.weather[0].icon === '11n') { %>
+                <i class="fas fa-bolt" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '13d' || weather.weather[0].icon === '13n') { %>
+                <i class="fas fa-snowflake" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '50d' || weather.weather[0].icon === '50n') { %>
+                <i class="fas fa-smog" style="font-size: 2.5rem;"></i>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="container" style="">
+    
+
+
+<div class="row justify-content-center">
+      <div class="col-6 m-1 " style="max-width: 10rem;">
+  
+        <div class="card  shadow" style=" border-radius: 1rem; ">
+          <a href="/chat" class="stretched-link"></a>
+          <div class="card-body text-center">
+
+
+            <i class="fa-brands fa-whatsapp" style=" font-size:4rem; color:lightgreen; "></i>
+            <p class=" text-muted  card-text mt-1">Chat Us</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 m-1 " style="max-width: 10rem;">
+        <div class="card  shadow" style=" border-radius: 1rem; ">
+          <a href="/query" class="stretched-link"></a>
+
+          <div class="card-body text-center">
+
+
+            <i class="fa-solid fa-lightbulb" style=" font-size:4rem; color:gold; "></i>
+            <p class=" text-muted  card-text mt-1">Query</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 m-1 " style="max-width: 10rem;">
+        <div class="card  shadow" style=" border-radius: 1rem; ">
+          <a href="/userprofile" class="stretched-link"></a>
+
+          <div class="card-body text-center">
+            <i class="fa-solid fa-user" style=" font-size:4rem; color:rgb(107, 107, 255); "></i>
+            <p class=" text-muted  card-text mt-1">User Profile</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 m-1 " style="max-width: 10rem;">
+        <div class="card  shadow" style=" border-radius: 1rem; ">
+          <a href="/notifiaction" class="stretched-link"></a>
+
+          <div class="card-body text-center " >
+            <i class="fa-solid fa-bell" style=" font-size:4rem; color:gold; "></i>
+            <p class=" text-muted  card-text mt-1">Notification</p>
+          </div>
+        </div>
+      </div>
+    
+
+    </div>
+
+
+
+
+  </div>
+
+</body>
+
+
+
+
+
+</html>

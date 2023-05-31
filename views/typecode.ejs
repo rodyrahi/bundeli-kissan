@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+<body style="font-family: 'Rubik', sans-serif;">
+  <%- include('./partials/navbar.ejs') %>
+
+  <div class="container d-flex justify-content-center align-items-center " style="height:60vh;">
+    <div class="row">
+      <div class="col">
+        <form action="numberlogin" method="POST">
+          <div class="d-flex justify-content-center mb-3" style="flex-direction: column;">
+            <h1>Enter Code</h1> 
+            <input style=" font-size: 1.5rem;" type="text" name="code" id="code" class="form-control" placeholder="CODE">
+          
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

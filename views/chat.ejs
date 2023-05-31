@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+
+<script>
+
+
+
+
+</script>
+
+<body style="font-family: 'Rubik', sans-serif;">
+  <%- include('./partials/navbar.ejs') %>
+
+
+  <p><%= locals.chats %></p>
+
+  <div class="" style="position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);">
+
+
+
+
+
+
+    <div class="card-footer text-muted d-flex justify-content-start align-items-center p-1">
+
+      <form action="savechat" method="POST" style="display: contents;"> 
+      <a class="mx-1" id="speechButton"><i class="fas fa-microphone m-2 text-primary"></i></a>
+
+  
+      <input type="text" style="border-radius: 2rem;" class="form-control form-control-lg" id="textInput" name="textInput" placeholder="Type message">
+      <button class="m-1 p-2 btn-primary" type="submit" style="border-radius: 1rem;"  ><i class="fas fa-paper-plane"></i></button>
+    </form>  
+
+    </div>
+</div>
+
+
+
+
+    <script>
+      // Check browser support for SpeechRecognition
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (typeof SpeechRecognition === 'undefined') {
+        alert("Speech recognition is not supported in this browser.");
+      } else {
+        const recognition = new SpeechRecognition();
+        const textInput = document.getElementById('textInput');
+        const speechButton = document.getElementById('speechButton');
+        let isListening = false;
+
+        // Configure recognition settings
+        recognition.lang = 'en-IN'; // Set the language to English (India)
+        recognition.continuous = true; // Enable continuous recognition
+
+        // Add event listener for speech recognition result
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          textInput.value += transcript; // Append speech input to the text input field
+        };
+
+        // Toggle speech recognition on button click
+        speechButton.addEventListener('click', () => {
+          if (!isListening) {
+            recognition.start();
+            speechButton.innerHTML = '<i class="fas fa-stop"></i>';
+            isListening = true;
+          } else {
+            recognition.stop();
+            speechButton.innerHTML = '<i class="fas fa-microphone"></i>';
+            isListening = false;
+          }
+        });
+      }
+    </script>
+
+</body>
+
+
+
+
+
+</html>
