@@ -6,7 +6,18 @@ const qrcode = require('qrcode-terminal');
 
 const { Client , LocalAuth } = require('whatsapp-web.js');
 const client = new Client({
-  authStrategy: new LocalAuth()}
+  authStrategy: new LocalAuth(),
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-accelerated-2d-canvas',
+    '--no-first-run',
+    '--no-zygote',
+    '--disable-gpu',
+    '--unhandled-rejections=strict'
+    ],
+  }
 );
 
 client.on('qr', qr => {
@@ -19,19 +30,6 @@ client.on('ready', () => {
 });
 
 client.initialize();
-
-
-
-
-
-
- 
-
- 
-
- 
-
-
 
 
 

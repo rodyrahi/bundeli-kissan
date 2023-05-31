@@ -1,7 +1,7 @@
-2023/05/31-20:50:58.312 3a50 Creating DB F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
-2023/05/31-20:50:58.315 3a50 Reusing MANIFEST F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/05/31-20:50:58.386 2a74 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
-2023/05/31-20:50:58.857 14e4 Manual compaction at level-0 from '\x00\x06\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x07\x00\x00\x00' @ 0 : 0; will stop at (end)
-2023/05/31-20:51:24.897 14e4 Level-0 table #5: started
-2023/05/31-20:51:24.925 14e4 Level-0 table #5: 1064867 bytes OK
-2023/05/31-20:51:24.927 14e4 Delete type=0 #3
+2023/05/31-21:00:45.613 3104 Reusing MANIFEST F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/05/31-21:00:45.613 3104 Recovering log #28
+2023/05/31-21:00:45.705 3104 Reusing old log F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000028.log 
+2023/05/31-21:01:00.445 3db4 Compacting 1@1 + 1@2 files
+2023/05/31-21:01:00.494 3db4 Generated table #31@1: 13612 keys, 558665 bytes
+2023/05/31-21:01:00.495 3db4 Compacted 1@1 + 1@2 files => 558665 bytes
+2023/05/31-21:01:00.495 3db4 compacted to: files[ 0 0 1 0 0 0 0 ]
