@@ -1,3 +1,5 @@
-2023/05/31-21:00:43.490 1c6c Reusing MANIFEST F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/05/31-21:00:43.490 1c6c Recovering log #28
-2023/05/31-21:00:43.595 1c6c Reusing old log F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000028.log 
+2023/05/31-22:25:15.334 2518 Reusing MANIFEST F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/05/31-22:25:15.339 2518 Recovering log #28
+2023/05/31-22:25:15.460 2518 Reusing old log F:\bundeli-kissan\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000028.log 
+2023/05/31-22:25:15.460 2518 Delete type=2 #27
+2023/05/31-22:25:15.460 2518 Delete type=2 #29
