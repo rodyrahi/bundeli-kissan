@@ -14,7 +14,14 @@
   <%- include('./partials/navbar.ejs') %>
 
 
-  <p><%= locals.chats %></p>
+  <% chats.forEach(element => { %>
+
+    <div class=" row shadow border m-2 p-2 bg-primary text-white" style="border-radius: 1rem; word-wrap:anywhere">
+      <h5 class="m-1"><%= element.chat  %></h5>
+
+    </div>
+
+  <% }) %>
 
   <div class="" style="position: fixed;
   bottom: 0;
@@ -30,7 +37,9 @@
 
     <div class="card-footer text-muted d-flex justify-content-start align-items-center p-1">
 
-      <form action="savechat" method="POST" style="display: contents;"> 
+      <form action="savechat/<%= phonenumber %>" method="POST" style="display: contents;"> 
+
+
       <a class="mx-1" id="speechButton"><i class="fas fa-microphone m-2 text-primary"></i></a>
 
   

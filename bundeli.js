@@ -60,24 +60,22 @@ function executeQuery(query) {
   });
 }
 
-app.get('/home', (req, res) => {
+app.get('/home/:phonenumber', (req, res) => {
+  const phonenumber = req.params.phonenumber;
+  console.log(phonenumber);
 
-  
+  // Remove the '+' character from the phone number
 
-
-    axios('https://api.openweathermap.org/data/2.5/weather?id=1264542&appid=404ae0fc6125b1b2ac81edc980993a31')
-    
-
-.then(response => {
-  console.log(response.data);
-  res.render('home' , {weather:response.data})
-})
-.catch(error => {
-  console.log('Error:', error);
+  axios(`https://api.openweathermap.org/data/2.5/weather?id=1264542&appid=404ae0fc6125b1b2ac81edc980993a31`)
+    .then(response => {
+      res.render('home', { weather: response.data, phonenumber:phonenumber });
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
 });
 
 
-})
 
 
 app.get('/', (req, res) => {
@@ -93,30 +91,34 @@ res.render('loginpage')
 
 
 
-app.get('/chat',async (req, res) => {
-  const gid = '123'
+app.get('/chat/:number',async (req, res) => {
+  const number = req.params.number
+
+  console.log(number);
   try {
-    const result =  await executeQuery(`SELECT * FROM chats WHERE gid='${gid}'`)
-    res.render('chat' , {chats:result[0].chat})
+    const result =  await executeQuery(`SELECT (chat) FROM chats WHERE number='${number}'`)
+    
+    console.log(result);
+    res.render('chat' , { phonenumber:number,chats:result})
 
   } catch (error) {
-    res.render('chat')
+    res.render('chat' , {phonenumber:number})
   }
 
 })
 
-app.post('/savechat', async (req, res) => {
+app.post('/savechat/:number', async (req, res) => {
   
-
+  const number = req.params.number
 
   console.log(req.body);
   
   const { textInput  } = req.body
 
-  await executeQuery(`INSERT INTO chats (chat) VALUES ('${textInput}')`)
+  await executeQuery(`INSERT INTO chats (chat , number) VALUES ('${textInput}' , '${number}')`)
   
   
-  res.render('chat')
+  res.redirect( '/chat/'+number)
 })
 var randomCode
 app.post('/sendcode', async (req, res) => {
@@ -157,14 +159,14 @@ app.post('/sendcode', async (req, res) => {
   }
 
 
-  res.render('typecode')
+  res.render('typecode' , {number:number})
 })
 
 app.post('/numberlogin', async (req, res) => {
-  const {code} = req.body
+  const {code , phonenumber} = req.body
 
   if (code === randomCode) {
-    res.redirect('/home')
+    res.redirect('/home/'+phonenumber )
 
   }
   res.render('whatsapplogin')
