@@ -148,6 +148,15 @@ app.post('/sendcode', async (req, res) => {
 
   });
 
+
+  const result = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`)
+
+  if (result.length < 1) {
+    await executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`)
+
+  }
+
+
   res.render('typecode')
 })
 
@@ -166,6 +175,7 @@ app.post('/numberlogin', async (req, res) => {
 
 
 app.get('/whatsapplogin',async (req, res) => {
+
 
     res.render('whatsapplogin')
 
