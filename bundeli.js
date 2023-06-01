@@ -164,7 +164,7 @@ app.post('/numberlogin', async (req, res) => {
   const {code} = req.body
 
   if (code === randomCode) {
-    res.redirect('/')
+    res.redirect('/home')
 
   }
   res.render('whatsapplogin')
