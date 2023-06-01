@@ -60,7 +60,7 @@ function executeQuery(query) {
   });
 }
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
 
   
 
@@ -78,6 +78,18 @@ app.get('/', (req, res) => {
 
 
 })
+
+
+app.get('/', (req, res) => {
+
+
+res.render('loginpage')
+
+
+})
+
+
+
 
 
 
@@ -146,7 +158,7 @@ app.post('/numberlogin', async (req, res) => {
     res.redirect('/')
 
   }
-  res.render('login')
+  res.render('whatsapplogin')
 
 })
 
@@ -155,7 +167,7 @@ app.post('/numberlogin', async (req, res) => {
 
 app.get('/whatsapplogin',async (req, res) => {
 
-    res.render('login')
+    res.render('whatsapplogin')
 
 
 })
