@@ -1,4 +1,11 @@
-[0601/053431.438:ERROR:dxva_video_decode_accelerator_win.cc(1426)] DXVAVDA fatal error: Could not load mf.dll: The specified module could not be found. (0x7E)
-[0601/053433.035:WARNING:backend_impl.cc(1826)] Destroying invalid entry.
-[0601/053433.041:WARNING:backend_impl.cc(1826)] Destroying invalid entry.
-[0601/053433.109:WARNING:backend_impl.cc(1826)] Destroying invalid entry.
+[0606/165035.876:ERROR:dxva_video_decode_accelerator_win.cc(1426)] DXVAVDA fatal error: Could not load mf.dll: The specified module could not be found. (0x7E)
+[0606/165051.487:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~app.a91035d81a749b3d5627.js (7)
+[0606/165051.488:INFO:CONSOLE(1)] "Another connection wants to delete database 'wawc_db_enc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/WAWebWorker.428f2f82b768906fee79.worker.js (1)
+[0606/165051.609:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'ambient-light-sensor'.", source:  (0)
+[0606/165051.609:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[0606/165052.053:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~app.a91035d81a749b3d5627.js (7)
+[0606/165053.256:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'ambient-light-sensor'.", source:  (0)
+[0606/165053.256:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[0606/165053.358:INFO:CONSOLE(7)] "Another connection wants to delete database 'wawc'. Closing db now to resume the delete request.", source: https://web.whatsapp.com/vendor1~app.a91035d81a749b3d5627.js (7)
+[0606/165129.452:INFO:CONSOLE(40)] "Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Partial response (status code 206) is unsupported", source: https://web.whatsapp.com/serviceworker.js (40)
+[0606/165129.516:INFO:CONSOLE(40)] "Uncaught (in promise) TypeError: Failed to execute 'put' on 'Cache': Partial response (status code 206) is unsupported", source: https://web.whatsapp.com/serviceworker.js (40)

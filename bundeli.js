@@ -60,6 +60,14 @@ function executeQuery(query) {
   });
 }
 
+
+app.get('/createprofile/:number',async (req, res) => {
+
+  const number = req.params.number
+  res.render('createprofile' , {phonenumber : number})
+
+})
+
 app.get('/home/:phonenumber', (req, res) => {
   const phonenumber = req.params.phonenumber;
   console.log(phonenumber);
