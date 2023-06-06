@@ -67,12 +67,35 @@ app.get('/createprofile/:number',async (req, res) => {
   res.render('createprofile' , {phonenumber : number})
 
 })
+app.post('/createprofile/:number',async (req, res) => {
+
+  const number = req.params.number
+  const {name , fathername , gender , dob , pincode , address} = req.body
+
+  await executeQuery(`INSERT INTO kissans (number,name , fathername , gender , dob , pincode , address) VALUES ('${number}','${name}','${fathername}' ,'${gender}' ,'${dob}','${pincode}','${address}')`)
+
+  res.redirect('/home/'+number)
+
+})
+
+app.get('/userprofile/:number',async (req, res) => {
+
+  const number = req.params.number
+  const result = await executeQuery(`SELECT * FROM kissans WHERE number='${number}' `) 
+
+  console.log(result);
+
+  res.render('userprofile' , {phonenumber : number , user:result[0]})
+
+})
+
+
+
+
 
 app.get('/home/:phonenumber', (req, res) => {
   const phonenumber = req.params.phonenumber;
   console.log(phonenumber);
-
-  // Remove the '+' character from the phone number
 
   axios(`https://api.openweathermap.org/data/2.5/weather?id=1264542&appid=404ae0fc6125b1b2ac81edc980993a31`)
     .then(response => {
@@ -81,6 +104,9 @@ app.get('/home/:phonenumber', (req, res) => {
     .catch(error => {
       console.log('Error:', error);
     });
+
+  // Issue: Multiple response can be sent if an error occurs or if the request is successful.
+
 });
 
 
@@ -128,12 +154,12 @@ app.post('/savechat/:number', async (req, res) => {
   
   res.redirect( '/chat/'+number)
 })
+
+
 var randomCode
 app.post('/sendcode', async (req, res) => {
   
-
   const { phonenumber } = req.body
-
   const number = '+91'+phonenumber
   console.log(req.body);
   const generateRandomCode = () => {
@@ -185,11 +211,7 @@ app.post('/numberlogin', async (req, res) => {
 
 
 app.get('/whatsapplogin',async (req, res) => {
-
-
     res.render('whatsapplogin')
-
-
 })
 
 
