@@ -61,6 +61,16 @@ function executeQuery(query) {
 }
 
 
+app.get('/', (req, res) => {
+
+
+  res.render('loginpage')
+  
+  
+  })
+
+
+
 app.get('/createprofile/:number',async (req, res) => {
 
   const number = req.params.number
@@ -89,10 +99,6 @@ app.get('/userprofile/:number',async (req, res) => {
 
 })
 
-
-
-
-
 app.get('/home/:phonenumber', (req, res) => {
   const phonenumber = req.params.phonenumber;
   console.log(phonenumber);
@@ -108,22 +114,6 @@ app.get('/home/:phonenumber', (req, res) => {
   // Issue: Multiple response can be sent if an error occurs or if the request is successful.
 
 });
-
-
-
-
-app.get('/', (req, res) => {
-
-
-res.render('loginpage')
-
-
-})
-
-
-
-
-
 
 app.get('/chat/:number',async (req, res) => {
   const number = req.params.number
@@ -149,12 +139,13 @@ app.post('/savechat/:number', async (req, res) => {
   
   const { textInput  } = req.body
 
-  await executeQuery(`INSERT INTO chats (chat , number) VALUES ('${textInput}' , '${number}')`)
+
+  const name = await executeQuery(`SELECT (name) FROM kissans WHERE number='${number}'`)
+  await executeQuery(`INSERT INTO chats (chat , number ,name) VALUES ('${textInput}' , '${number}', '${name[0].name}')`)
   
   
   res.redirect( '/chat/'+number)
 })
-
 
 var randomCode
 app.post('/sendcode', async (req, res) => {
@@ -207,12 +198,18 @@ app.post('/numberlogin', async (req, res) => {
 
 })
 
-
-
-
 app.get('/whatsapplogin',async (req, res) => {
     res.render('whatsapplogin')
 })
+
+app.get('/query',async (req, res) => {
+
+  const chats = await executeQuery(`SELECT * FROM chats`)
+  res.render('query' , {chats:chats})
+  
+  
+  })
+
 
 
 app.listen(7777)

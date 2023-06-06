@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+
+<script>
+
+
+
+
+</script>
+
+<body style="font-family: 'Rubik', sans-serif;">
+  <%- include('./partials/navbar.ejs') %>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <% chats.forEach(element => { %>
+                    <div class=" row shadow border m-2 p-2  " style="border-radius: 1rem; word-wrap:anywhere">
+                        <p class="m-1"><%= element.name  %></p>
+                        <hr>
+                        <p class="m-1"><%= element.chat  %></p>
+                  
+                      </div>
+                  
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+
+</html>

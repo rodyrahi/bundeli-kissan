@@ -2,8 +2,8 @@
     <div class="container-fluid">
       <div class="d-flex">
         <!-- Navbar toggler aligned to the left -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">          <span class="navbar-toggler-icon"></span>
+        </button>
         </button>
       </div>
   
@@ -12,12 +12,16 @@
         <a class="navbar-brand" href="#">Dashboard</a>
       </div>
       
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Features</a>
-          <a class="nav-link" href="#">Pricing</a>
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header bg-light">
+          <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Bundeli Kissan</h5>
+
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <p>Rajvendra Rahi</p>
+          <p>Sikander</p>
         </div>
       </div>
     </div>
