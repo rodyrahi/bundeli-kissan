@@ -156,7 +156,7 @@ app.post('/savechat/:number', upload.array('image'), async (req, res) => {
   if (files) {
     files.forEach((file, index) => {
       const fileName = fileNames[index];
-      const filePath = path.join(__dirname, 'public', 'uploads', name[0].name);
+      const filePath = path.join(__dirname, 'public', 'uploads');
   
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });

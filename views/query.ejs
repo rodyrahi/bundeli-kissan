@@ -15,7 +15,7 @@
     <div class="container">
         <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col">
                 <% chats.forEach(element => { %>
                     <div class=" row shadow border m-2 p-2  " style="border-radius: 1rem; word-wrap:anywhere">
@@ -27,7 +27,53 @@
                   
                 <% }) %>
             </div>
-        </div>
+        </div> -->
+    
+
+        <nav>
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-unsolved-tab" data-bs-toggle="tab" data-bs-target="#nav-unsolved" type="button" role="tab" aria-controls="nav-unsolved" aria-selected="true">Unsolved</button>
+              <button class="nav-link" id="nav-solved-tab" data-bs-toggle="tab" data-bs-target="#nav-solved" type="button" role="tab" aria-controls="nav-solved" aria-selected="false">Solved</button>
+              <button class="nav-link" id="nav-myquery-tab" data-bs-toggle="tab" data-bs-target="#nav-myquery" type="button" role="tab" aria-controls="nav-myquery" aria-selected="false">My Query</button>
+            </div>
+          </nav>
+          <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+            <div class="tab-pane fade active show" id="nav-unsolved" role="tabpanel" aria-labelledby="nav-unsolved-tab">
+                <% chats.forEach(element => { %>
+                    <h4 class="m-1"> By <%= element.name  %></h4>
+
+                    <% if (element.status === 'unsolved') { %>
+                      <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+                      <% images.forEach(image => { %>
+                        <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+                      <% }) %>
+                    <% } %>
+                    <h5 class="my-2">Query</h5>
+                    <p class="m-1"><%= element.chat  %></p>
+                    <hr>
+                  <% }) %>
+                  
+            </div>
+            <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
+              <p><strong>This is some placeholder content for the Solved tab's associated content.</strong>
+                Clicking another tab will toggle the visibility of this one for the next.
+                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
+                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+            </div>
+            <div class="tab-pane fade" id="nav-myquery" role="tabpanel" aria-labelledby="nav-myquery-tab">
+              <p><strong>This is some placeholder content for the My Query tab's associated content.</strong>
+                Clicking another tab will toggle the visibility of this one for the next.
+                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
+                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+            </div>
+          </div>
+          
+    
+    
+    
+    
+    
+    
     </div>
 </body>
 
