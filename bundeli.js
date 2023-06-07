@@ -4,6 +4,12 @@ const axios = require('axios');
 var con = require('./database.js');
 const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth } = require('whatsapp-web.js');
+const multer = require('multer');
+const bodyParser = require('body-parser');
+const path = require('path');
+const fs = require('fs');
+
+const upload = multer();
 
 const client = new Client({
   restartOnAuthFail: true,
@@ -52,6 +58,22 @@ function executeQuery(query) {
     });
   });
 }
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Parse JSON bodies (as sent by API clients)
+app.use(bodyParser.json());
+
+// Handle the POST request
+app.post('/upload', upload.array('image'), (req, res) => {
+  // Get the file names
+  const fileNames = req.files.map(file => file.originalname);
+  res.send(fileNames);
+});
+
+
+
 
 app.get('/', (req, res) => {
   res.render('loginpage');
@@ -117,23 +139,48 @@ app.get('/chat/:number', async (req, res) => {
   }
 });
 
-app.post('/savechat/:number', async (req, res) => {
+app.post('/savechat/:number', upload.array('image'), async (req, res) => {
   const number = req.params.number;
+  const fileNames = req.files.map(file => file.originalname);
+  const files = req.files;
 
-  console.log(req.body);
+
 
   const { textInput } = req.body;
 
   const name = await executeQuery(
-    `SELECT (name) FROM kissans WHERE number='${number}'`
+    `SELECT name FROM kissans WHERE number='${number}'`
   );
 
+
+  if (files) {
+    files.forEach((file, index) => {
+      const fileName = fileNames[index];
+      const filePath = path.join(__dirname, 'public', 'uploads', name[0].name);
+  
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath, { recursive: true });
+      }
+  
+      const fileFullPath = path.join(filePath, fileName);
+      fs.writeFile(fileFullPath, file.buffer, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    });
+  }
+  
+
+
+
   await executeQuery(
-    `INSERT INTO chats (chat , number ,name) VALUES ('${textInput}' , '${number}', '${name[0].name}')`
+    `INSERT INTO chats (chat, number, name, image) VALUES ('${textInput}', '${number}', '${name[0].name}', '${JSON.stringify(fileNames)}')`
   );
 
   res.redirect('/chat/' + number);
 });
+
 
 var randomCode;
 

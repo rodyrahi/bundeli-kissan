@@ -13,6 +13,8 @@
 <body style="font-family: 'Rubik', sans-serif;">
   <%- include('./partials/navbar.ejs') %>
     <div class="container">
+        <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
+
         <div class="row">
             <div class="col">
                 <% chats.forEach(element => { %>

@@ -3,8 +3,14 @@
 <%- include('./partials/header.ejs') %>
 
 <body style="font-family: 'Rubik', sans-serif;">
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; flex-direction: column;">
+        <div class="text-start" style="width: inherit;">
+            <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
+
+        </div>
+
         <div class="row ">
+
             <h1>Create A Profile</h1>
             <form action="/createprofile/<%= phonenumber %>" method="post" >
                 <div class="mb-3">

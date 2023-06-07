@@ -14,15 +14,44 @@
   <%- include('./partials/navbar.ejs') %>
 
 
-  <% chats.forEach(element => { %>
+  <div class="container">
+    <button class="btn btn-outline-secondary my -2" onclick="history.back()">Back</button>
+
+    <h2>Make A Query</h2>
+    <form action="/savechat/<%= phonenumber %>" method="POST" style="display: contents;" enctype="multipart/form-data">
+
+      
+      <div class="form-group mb-2 text-center">
+        <div class="p-3"  style="border: 2px gray dashed;" onclick="getimages()">
+          <i class="fa-solid fa-images text-secondary" style="font-size: 3rem;"></i>
+          <p>Select Images</p>
+
+        </div>
+        <!-- <label for="image">Upload Image:</label> -->
+        <input type="file" class="form-control" style="display: none;" id="image" name="image" multiple >        
+        <div class="m-1" id="image-preview"></div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="query">Query:</label>
+        <textarea class="form-control mb-1" id="textInput" name="textInput" rows="5"></textarea>
+        <a class=" btn btn-success" id="speechButton"><i class="fas fa-microphone m-1 " style="font-size: 1.7rem;"></i></a>
+
+      </div>
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+
+
+
+  <!-- <% chats.forEach(element => { %>
 
     <div class=" row shadow border m-2 p-2 bg-primary text-white" style="border-radius: 1rem; word-wrap:anywhere">
       <h5 class="m-1"><%= element.chat  %></h5>
 
     </div>
 
-  <% }) %>
-
+  <% }) %> -->
+<!-- 
   <div class="" style="position: fixed;
   bottom: 0;
   left: 0;
@@ -40,7 +69,6 @@
       <form action="/savechat/<%= phonenumber %>" method="POST" style="display: contents;"> 
 
 
-      <a class="mx-1" id="speechButton"><i class="fas fa-microphone m-2 text-primary"></i></a>
 
   
       <input type="text" style="border-radius: 2rem;" class="form-control form-control-lg" id="textInput" name="textInput" placeholder="Type message">
@@ -48,7 +76,7 @@
     </form>  
 
     </div>
-</div>
+</div> -->
 
 
 
@@ -88,6 +116,51 @@
         });
       }
     </script>
+
+
+<script>
+  $(document).ready(function() {
+    // Image preview
+    $("#image").change(function() {
+      readURL(this);
+    });
+
+    function readURL(input) {
+      if (input.files && input.files.length > 0) {
+        $("#image-preview").empty();
+        for (var i = 0; i < input.files.length; i++) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            $("<img>").attr("src", e.target.result).addClass("preview-image m-1").appendTo("#image-preview");
+          }
+          reader.readAsDataURL(input.files[i]);
+        }
+      }
+    }
+  });
+</script>
+
+
+
+<script>
+  function getimages() {
+    $("#image").click()
+  }
+</script>
+
+
+
+
+<style>
+  .preview-image {
+    max-width: 200px;
+    margin-right: 10px;
+  }
+</style>
+
+
+
+
 
 </body>
 
