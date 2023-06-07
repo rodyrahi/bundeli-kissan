@@ -61,10 +61,20 @@
                 tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
             </div>
             <div class="tab-pane fade" id="nav-myquery" role="tabpanel" aria-labelledby="nav-myquery-tab">
-              <p><strong>This is some placeholder content for the My Query tab's associated content.</strong>
-                Clicking another tab will toggle the visibility of this one for the next.
-                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
-                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+                <% chats.forEach(element => { %>
+
+                    <% if (element.name === name ) { %>
+                      <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+                      <% images.forEach(image => { %>
+                        <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+                      <% }) %>
+                    <% } %>
+                    <h5 class="my-2">Query</h5>
+                    <p class="m-1"><%= element.chat  %></p>
+
+                    <a class="btn btn-dark" href="/delete/<%= number %>/<%= element.id %>">Delete</a>
+                    <hr>
+                  <% }) %>
             </div>
           </div>
           

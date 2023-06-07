@@ -139,6 +139,48 @@ app.get('/chat/:number', async (req, res) => {
   }
 });
 
+
+app.get('/delete/:number/:id', async (req, res) => {
+  const number = req.params.number;
+  const id = req.params.id;
+
+  const imagesResult = await executeQuery(
+    `SELECT image FROM chats WHERE id='${id}'`
+  );
+  const images = imagesResult[0].image.split(',');
+
+  images.forEach((image) => {
+    const imagePath = path.join(__dirname, 'public', 'uploads', image.trim());
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(`Successfully deleted image: ${image}`);
+      }
+    });
+  });
+
+  await executeQuery(
+    `DELETE FROM chats WHERE id='${id}'`
+  );
+
+  res.redirect('/query/' + number);
+});
+
+
+
+app.get('/query/:number', async (req, res) => {
+  const number = req.params.number;
+
+  const chats = await executeQuery('SELECT * FROM chats');
+
+  const name = await executeQuery(
+    `SELECT name FROM kissans WHERE number='${number}'`
+  );
+  res.render('query', { chats: chats  , name:name[0].name , number:number} );
+});
+
+
 app.post('/savechat/:number', upload.array('image'), async (req, res) => {
   const number = req.params.number;
   const fileNames = req.files.map(file => file.originalname);
@@ -175,10 +217,10 @@ app.post('/savechat/:number', upload.array('image'), async (req, res) => {
 
 
   await executeQuery(
-    `INSERT INTO chats (chat, number, name, image) VALUES ('${textInput}', '${number}', '${name[0].name}', '${JSON.stringify(fileNames)}')`
+    `INSERT INTO chats (chat, number, name, image) VALUES ('${textInput}', '${number}', '${name[0].name}', '${fileNames}')`
   );
 
-  res.redirect('/chat/' + number);
+  res.redirect('/query/' + number);
 });
 
 
@@ -240,10 +282,7 @@ app.get('/whatsapplogin', async (req, res) => {
   res.render('whatsapplogin');
 });
 
-app.get('/query', async (req, res) => {
-  const chats = await executeQuery('SELECT * FROM chats');
-  res.render('query', { chats: chats });
-});
+
 
 app.listen(7777, () => {
   console.log('Server is running on port 7777');
