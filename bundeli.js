@@ -333,6 +333,15 @@ app.post('/expertlogin', async (req, res) => {
 
 });
 
+app.get('/notification/:number', async (req, res) => {
+  const number = req.params.number
+  const chats = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
+
+  res.render('notification', { number: number , chats:chats})
+});
+
+
+
 
 
 
