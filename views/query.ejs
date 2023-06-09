@@ -57,16 +57,22 @@
                   
             </div>
             <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
-              <% chats.forEach(element => { %>
+              <% chats.forEach((element , index) => { %>
                 <% if (element.status === 'solved') { %>
 
                 <h4 class="m-1"> By <%= element.name  %></h4>
-        
+
+                <a class="btn btn-dark mb-2" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">
+                  View Image
+                </a>
+
+                <div class="collapse" id="collapse<%= index  %>">
+
                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                 <% images.forEach(image => { %>
                 <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                 <% }) %>
-             
+              </div>
                 <h5 class="my-2">Query</h5>
                 <p class="m-1"><%= element.chat  %></p>
                 <hr>
