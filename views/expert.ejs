@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+
+<script>
+
+
+
+
+</script>
+
+<body style="font-family: 'Rubik', sans-serif;">
+  <%- include('./partials/navbar.ejs') %>
+  <div class="container">
+    <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
+    <nav>
+      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-unsolved-tab" data-bs-toggle="tab" data-bs-target="#nav-unsolved" type="button" role="tab" aria-controls="nav-unsolved" aria-selected="true">Unsolved</button>
+        <button class="nav-link" id="nav-solved-tab" data-bs-toggle="tab" data-bs-target="#nav-solved" type="button" role="tab" aria-controls="nav-solved" aria-selected="false">Solved</button>
+      </div>
+    </nav>
+    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+      <div class="tab-pane fade active show" id="nav-unsolved" role="tabpanel" aria-labelledby="nav-unsolved-tab">
+        <% chats.forEach(element => { %>
+        <% if (element.status === 'unsolved') { %>
+        <h4 class="m-1"> By <%= element.name  %></h4>
+
+       
+        <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+        <% images.forEach(image => { %>
+        <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+        <% }) %>
+        
+        <h5 class="my-2">Query</h5>
+        <p class="m-1"><%= element.chat  %></p>
+        <hr>
+
+        <form action="/expertreply" method="post">
+            <div class="mb-3">
+                <textarea class="form-control" rows="" cols="" name="reply" ></textarea>
+                <input type="tel" value="<%= element.number %>" name="number">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" >Reply</button>
+
+            </div>
+        </form>
+        <% } %>
+        <% }) %>
+
+      </div>
+      <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
+        <% chats.forEach(element => { %>
+            <h4 class="m-1"> By <%= element.name  %></h4>
+    
+            <% if (element.status === 'solved') { %>
+            <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+            <% images.forEach(image => { %>
+            <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+            <% }) %>
+            <% } %>
+            <h5 class="my-2">Query</h5>
+            <p class="m-1"><%= element.chat  %></p>
+            <hr>
+            <h5 class="my-2">Answer</h5>
+            <div class="p-2 border rounded bg-warning">
+                <p class=""><%= element.reply  %></p>
+
+            </div>
+
+            <% }) %>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+
+
+
+
+</html>

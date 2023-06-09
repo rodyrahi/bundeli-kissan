@@ -282,6 +282,58 @@ app.get('/whatsapplogin', async (req, res) => {
   res.render('whatsapplogin');
 });
 
+app.get('/expertlogin', async (req, res) => {
+  res.render('expertlogin');
+});
+
+app.get('/expert', async (req, res) => {
+  const chats = await executeQuery('SELECT * FROM chats');
+
+  res.render('expert', { chats: chats})
+});
+
+app.post('/expertreply', async (req, res) => {
+
+  const {reply , number} = req.body
+
+
+  await executeQuery(`UPDATE chats SET reply='${reply}', status='solved' WHERE number='${number}'`);
+
+
+
+
+    res.redirect('/expert');
+
+
+
+
+
+});
+
+app.post('/expertlogin', async (req, res) => {
+
+  const {name , password} = req.body
+
+
+  const expert = await executeQuery(`SELECT * FROM experts WHERE user='${name}' AND pass='${password}'`)
+
+  console.log(expert);
+
+
+  if (expert.length > 0) {
+
+    res.redirect('/expert');
+
+
+  }else{
+    res.redirect('/');
+
+  }
+
+
+});
+
+
 
 
 app.listen(7777, () => {

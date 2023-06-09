@@ -40,25 +40,42 @@
           <div class="tab-content p-3 border bg-light" id="nav-tabContent">
             <div class="tab-pane fade active show" id="nav-unsolved" role="tabpanel" aria-labelledby="nav-unsolved-tab">
                 <% chats.forEach(element => { %>
+                  <% if (element.status === 'unsolved') { %>
                     <h4 class="m-1"> By <%= element.name  %></h4>
 
-                    <% if (element.status === 'unsolved') { %>
+
                       <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                       <% images.forEach(image => { %>
                         <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                       <% }) %>
-                    <% } %>
+                    
                     <h5 class="my-2">Query</h5>
                     <p class="m-1"><%= element.chat  %></p>
                     <hr>
+                    <% } %>
                   <% }) %>
                   
             </div>
             <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
-              <p><strong>This is some placeholder content for the Solved tab's associated content.</strong>
-                Clicking another tab will toggle the visibility of this one for the next.
-                The tab JavaScript swaps classes to control the content visibility and styling. You can use it with
-                tabs, pills, and any other <code>.nav</code>-powered navigation.</p>
+              <% chats.forEach(element => { %>
+                <h4 class="m-1"> By <%= element.name  %></h4>
+        
+                <% if (element.status === 'solved') { %>
+                <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+                <% images.forEach(image => { %>
+                <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+                <% }) %>
+                <% } %>
+                <h5 class="my-2">Query</h5>
+                <p class="m-1"><%= element.chat  %></p>
+                <hr>
+                <h5 class="my-2">Answer</h5>
+                <div class="p-2 border rounded bg-warning">
+                    <p class=""><%= element.reply  %></p>
+    
+                </div>
+    
+                <% }) %>
             </div>
             <div class="tab-pane fade" id="nav-myquery" role="tabpanel" aria-labelledby="nav-myquery-tab">
                 <% chats.forEach(element => { %>
