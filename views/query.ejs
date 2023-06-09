@@ -58,9 +58,10 @@
             </div>
             <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
               <% chats.forEach(element => { %>
+                <% if (element.status === 'solved') { %>
+
                 <h4 class="m-1"> By <%= element.name  %></h4>
         
-                <% if (element.status === 'solved') { %>
                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                 <% images.forEach(image => { %>
                 <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
