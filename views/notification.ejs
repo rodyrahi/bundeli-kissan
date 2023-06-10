@@ -19,29 +19,36 @@
         
         <% chats.forEach((element, index) => { %>
             <% if (element.status === 'solved') { %>
-                <div class="border p-1 rounded" >
-                    <p class="m-0">Your Question Has Been Answered <button class="btn btn-dark btn-sm m-1 " data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">  View Notification</button></p>
+                <div class="border p-1 rounded " >
+                    <p class="m-0">Your Question Has Been Answered </p>
                 
-            <div class="collapse" id="collapse<%= index  %>">
-                <h4 class="m-1"> By <%= element.name  %></h4>
-        
+            <div class=" p-1 my-1 mb-2 shadow collapse" style="background-color: cornsilk; border: 1px rgb(215, 215, 215) solid;border-radius: 0.5rem;" id="collapse<%= index  %>">
+
+                <h4 class="m-1 mb-2"><%= element.name  %></h4>
+                <p class="m-1 mb-2 text-wrap text-break"><%= element.chat  %></p>
+
+
+
                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                 <% images.forEach(image => { %>
                 <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                 <% }) %>
-
-                <h5 class="my-2">Query</h5>
-                <p class="m-1"><%= element.chat  %></p>
-                <hr>
-                <h5 class="my-2">Answer</h5>
-                <div class="p-2 border rounded bg-warning">
-                    <p class=""><%= element.reply  %></p>
-
+                    <hr>
+                    <h2 class="text-muted" >Answer</h2>
+                <div class="p-2 mt-2" style="background-color: darkcyan;
+                color: white;
+                border-radius: 0.4rem;">
+                    <p class="text-break"><%= element.reply  %></p>
+    
                 </div>
+
+
             </div>
             <% } %>
+            <button class="btn btn-success btn-sm  " data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">  View Notification</button>
+
             <% }) %>
-        </div>
+            </div>
 
     </div>
   </div>
