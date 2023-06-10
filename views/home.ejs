@@ -17,6 +17,7 @@
               <p class="text-primary mb-0"><%= weather.weather[0].main %></p>
 
               <p class=" text-info mb-0">Madhya Pradesh</p>
+              <p class="m-0" id="date" >Date</p>
             </div>
             <div class="tex">
               <div class="m-3 ">
@@ -117,7 +118,14 @@
 </body>
 
 
+<script>
+const currentDate = new Date();
 
+const day = currentDate.getDate();
+const month = currentDate.getMonth(); // Note: January is month 0
+const year = currentDate.getFullYear();
 
+   document.getElementById('date').innerText = day +'/'+ month +'/'+ year
+</script>
 
 </html>
