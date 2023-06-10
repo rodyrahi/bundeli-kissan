@@ -10,12 +10,12 @@
 
 </script>
 
-<body style="font-family: 'Rubik', sans-serif;">
+<body style="font-family: 'Rubik', sans-serif;   background-image: url('/uploads/pattern3.png'); background-color: white; background-repeat: repeat; background-size: contain;">
   <%- include('./partials/navbar.ejs') %>
-    <div class="container">
-        <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
+    <div class="container bg-white">
+        <button class="btn btn-secondary m-2" onclick="history.back()">Back</button>
 
-        <nav>
+        <nav >
             <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-unsolved-tab" data-bs-toggle="tab" data-bs-target="#nav-unsolved" type="button" role="tab" aria-controls="nav-unsolved" aria-selected="true">Unsolved</button>
               <button class="nav-link" id="nav-solved-tab" data-bs-toggle="tab" data-bs-target="#nav-solved" type="button" role="tab" aria-controls="nav-solved" aria-selected="false">Solved</button>
