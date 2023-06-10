@@ -85,18 +85,25 @@
                 <% }) %>
             </div>
             <div class="tab-pane fade" id="nav-myquery" role="tabpanel" aria-labelledby="nav-myquery-tab">
-                <% chats.forEach(element => { %>
+                <% chats.forEach((element , index) => { %>
 
                     <% if (element.name === name ) { %>
-                      <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
-                      <% images.forEach(image => { %>
-                        <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
-                      <% }) %>
-                    
-                    <p class="m-1 text-break"><%= element.chat  %></p>
+                      <div class="p-2 border rounded" style="background-color: cornsilk;">
+                        <a class="btn btn-success btn-sm mb-2 " style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">
+                          View Image
+                        </a>
+                        <div class="collapse" id="collapse<%= index  %>">
 
-                    <a class="btn btn-dark" href="/delete/<%= number %>/<%= element.id %>">Delete</a>
+                        <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+                        <% images.forEach(image => { %>
+                          <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+                        <% }) %>
+                      </div>
 
+                      <p class=" text-break"><%= element.chat  %></p>
+                      <hr>
+                      <a class="btn btn-dark" href="/delete/<%= number %>/<%= element.id %>">Delete</a>
+                    </div>
                     <% } %>
                   <% }) %>
                   
