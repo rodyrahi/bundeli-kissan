@@ -15,21 +15,6 @@
     <div class="container">
         <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
 
-        <!-- <div class="row">
-            <div class="col">
-                <% chats.forEach(element => { %>
-                    <div class=" row shadow border m-2 p-2  " style="border-radius: 1rem; word-wrap:anywhere">
-                        <p class="m-1"><%= element.name  %></p>
-                        <hr>
-                        <p class="m-1"><%= element.chat  %></p>
-                  
-                      </div>
-                  
-                <% }) %>
-            </div>
-        </div> -->
-    
-
         <nav>
             <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-unsolved-tab" data-bs-toggle="tab" data-bs-target="#nav-unsolved" type="button" role="tab" aria-controls="nav-unsolved" aria-selected="true">Unsolved</button>
@@ -37,34 +22,41 @@
               <button class="nav-link" id="nav-myquery-tab" data-bs-toggle="tab" data-bs-target="#nav-myquery" type="button" role="tab" aria-controls="nav-myquery" aria-selected="false">My Query</button>
             </div>
           </nav>
-          <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+          <div class="tab-content " id="nav-tabContent">
             <div class="tab-pane fade active show" id="nav-unsolved" role="tabpanel" aria-labelledby="nav-unsolved-tab">
-                <% chats.forEach(element => { %>
+                <% chats.forEach((element,index) => { %>
+                 
                   <% if (element.status === 'unsolved') { %>
-                    <h4 class="m-1"> By <%= element.name  %></h4>
-
-
-                      <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
-                      <% images.forEach(image => { %>
-                        <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
-                      <% }) %>
-                    
-                    <h5 class="my-2">Query</h5>
-                    <p class="m-1"><%= element.chat  %></p>
-                    <hr>
-                    <% } %>
+                    <div class=" p-1 m-1 mb-2 shadow" style="background-color: cornsilk; border: 1px rgb(215, 215, 215) solid;border-radius: 0.5rem;" >
+  
+                  <h4 class="m-1 mb-2"><%= element.name  %></h4>
+                  <p class="m-1 mb-2 text-wrap text-break"><%= element.chat  %></p>
+                  <a class="btn btn-success btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">
+                    View Image
+                  </a>
+  
+                  <div class="collapse" id="collapse<%= index  %>">
+  
+                  <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
+                  <% images.forEach(image => { %>
+                  <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                   <% }) %>
+                </div>
+  
+                  <% } %>
+
+                  <% }) %>
+                </div>
                   
             </div>
             <div class="tab-pane fade" id="nav-solved" role="tabpanel" aria-labelledby="nav-solved-tab">
               <% chats.forEach((element , index) => { %>
+               
                 <% if (element.status === 'solved') { %>
+                  <div class=" p-1 m-1 mb-2 shadow" style="background-color: cornsilk; border: 1px rgb(215, 215, 215) solid;border-radius: 0.5rem;" >
 
-                <h4 class="m-1"> By <%= element.name  %></h4>
-
-                <a class="btn btn-dark mb-2" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">
-                  View Image
-                </a>
+                <h4 class="m-1 mb-2"><%= element.name  %></h4>
+                <p class="m-1 mb-2 text-wrap text-break"><%= element.chat  %></p>
 
                 <div class="collapse" id="collapse<%= index  %>">
 
@@ -72,16 +64,24 @@
                 <% images.forEach(image => { %>
                 <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                 <% }) %>
-              </div>
-                <h5 class="my-2">Query</h5>
-                <p class="m-1"><%= element.chat  %></p>
-                <hr>
-                <h5 class="my-2">Answer</h5>
-                <div class="p-2 border rounded bg-warning">
-                    <p class=""><%= element.reply  %></p>
+              
+
+                <div class="p-2 my-2" style="background-color: darkcyan;
+                color: white;
+                border-radius: 0.4rem;">
+                    <p class="text-break"><%= element.reply  %></p>
     
                 </div>
+                  </div>
+                  <a class="btn btn-success btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index  %>">
+                    View Post
+                  </a>
+                </div>
+
+
                 <% } %>
+                
+
                 <% }) %>
             </div>
             <div class="tab-pane fade" id="nav-myquery" role="tabpanel" aria-labelledby="nav-myquery-tab">
@@ -93,11 +93,10 @@
                         <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                       <% }) %>
                     
-                    <h5 class="my-2">Query</h5>
-                    <p class="m-1"><%= element.chat  %></p>
+                    <p class="m-1 text-break"><%= element.chat  %></p>
 
                     <a class="btn btn-dark" href="/delete/<%= number %>/<%= element.id %>">Delete</a>
-                    <hr>
+
                     <% } %>
                   <% }) %>
                   
