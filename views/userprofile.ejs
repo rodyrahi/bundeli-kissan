@@ -3,7 +3,7 @@
 <%- include('./partials/header.ejs') %>
 
 <body style="font-family: 'Rubik', sans-serif;">
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; flex-direction: column;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 90vh; flex-direction: column;">
         <div class="text-start" style="width: inherit;">
             <button class="btn btn-outline-secondary m-2" onclick="history.back()">Back</button>
 
@@ -51,10 +51,11 @@
         </div>
     </div>
     
-
+    <div class="" style="margin-top: 6rem;">
+        <%- include('./partials/chin.ejs' , {number:phonenumber}) %>
+    </div>
 </body>
 
-<script></script>
 
 
 

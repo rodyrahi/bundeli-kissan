@@ -102,7 +102,7 @@
 
                       <p class=" text-break"><%= element.chat  %></p>
                       <hr>
-                      <a class="btn btn-dark" href="/delete/<%= number %>/<%= element.id %>">Delete</a>
+                      <a class="btn btn-dark" href="/delete/<%= phonenumber %>/<%= element.id %>">Delete</a>
                     </div>
                     <% } %>
                   <% }) %>
@@ -116,6 +116,10 @@
     
     
     
+    </div>
+
+    <div class="" style="margin-top: 6rem;">
+      <%- include('./partials/chin.ejs' , {number:phonenumber}) %>
     </div>
 </body>
 

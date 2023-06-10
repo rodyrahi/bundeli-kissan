@@ -177,7 +177,7 @@ app.get('/query/:number', async (req, res) => {
   const name = await executeQuery(
     `SELECT name FROM kissans WHERE number='${number}'`
   );
-  res.render('query', { chats: chats  , name:name[0].name , number:number} );
+  res.render('query', { chats: chats  , name:name[0].name , phonenumber:number} );
 });
 
 
@@ -337,7 +337,7 @@ app.get('/notification/:number', async (req, res) => {
   const number = req.params.number
   const chats = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
 
-  res.render('notification', { number: number , chats:chats})
+  res.render('notification', { phonenumber: number , chats:chats})
 });
 
 

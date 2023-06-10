@@ -39,46 +39,13 @@
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
+
+
   </div>
 
-
-
-  <!-- <% chats.forEach(element => { %>
-
-    <div class=" row shadow border m-2 p-2 bg-primary text-white" style="border-radius: 1rem; word-wrap:anywhere">
-      <h5 class="m-1"><%= element.chat  %></h5>
-
-    </div>
-
-  <% }) %> -->
-<!-- 
-  <div class="" style="position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: white;
-  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);">
-
-
-
-
-
-
-    <div class="card-footer text-muted d-flex justify-content-start align-items-center p-1">
-
-      <form action="/savechat/<%= phonenumber %>" method="POST" style="display: contents;"> 
-
-
-
-  
-      <input type="text" style="border-radius: 2rem;" class="form-control form-control-lg" id="textInput" name="textInput" placeholder="Type message">
-      <button class="m-1 p-2 btn-primary" type="submit" style="border-radius: 1rem;"  ><i class="fas fa-paper-plane"></i></button>
-    </form>  
-
-    </div>
-</div> -->
-
-
+  <div class="" style="margin-top: 6rem;">
+    <%- include('./partials/chin.ejs' , {number:phonenumber}) %>
+  </div>
 
 
     <script>
