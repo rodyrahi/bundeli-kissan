@@ -14,7 +14,21 @@
   <%- include('./partials/navbar.ejs') %>
     <div class="container">
        <div class="col">
-        
+        <% posts.forEach((element , index) => { %>
+
+      
+            <div class="p-2 border rounded mb-2" style="background-color: cornsilk;">
+
+
+              <% const images = element.images.replace(/["\[\]]/g, '').split(','); %>
+              <% images.forEach(image => { %>
+                <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+              <% }) %>
+ 
+
+            <p class=" text-break"><%= element.messages  %></p>
+          </div>
+        <% }) %>
        </div>
     
     </div>

@@ -8,6 +8,7 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
+const { redirect } = require('statuses');
 
 const upload = multer();
 
@@ -340,9 +341,111 @@ app.get('/notification/:number', async (req, res) => {
   res.render('notification', { phonenumber: number , chats:chats})
 });
 
+app.post('/savepost', upload.array('image'), async (req, res) => {
+  const fileNames = req.files.map(file => file.originalname);
+  const files = req.files;
 
 
 
+  const { textInput } = req.body;
+
+
+
+  const imagesResult = await executeQuery(
+    `SELECT images FROM adminposts WHERE name='admin'`
+  );
+  const images = imagesResult[0].images.split(',');
+
+  images.forEach((image) => {
+    const imagePath = path.join(__dirname, 'public', 'uploads','admin', image.trim());
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(`Successfully deleted image: ${image}`);
+      }
+    });
+  });
+
+  await executeQuery(`DELETE FROM adminposts WHERE name='admin';`)
+
+
+
+  if (files) {
+    files.forEach((file, index) => {
+      const fileName = fileNames[index];
+      const filePath = path.join(__dirname, 'public', 'uploads' , 'admin');
+  
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath, { recursive: true });
+      }
+  
+      const fileFullPath = path.join(filePath, fileName);
+      fs.writeFile(fileFullPath, file.buffer, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    });
+  }
+  
+
+
+
+  await executeQuery(
+    `INSERT INTO adminposts (message, images) VALUES ('${textInput}', '${fileNames}')`
+  );
+
+  res.redirect('/admindashboard')
+});
+
+app.post('/deleteuser', async (req, res) => {
+  const {deletename} = req.body
+
+
+
+  await executeQuery(`DELETE FROM experts WHERE user='${deletename}';`)
+
+  res.redirect('/admindashboard')
+});
+
+app.post('/createuser', async (req, res) => {
+  const {name , password} = req.body
+  await executeQuery(`INSERT INTO experts (user , pass) VALUES ('${name}' , '${password}')`)
+  res.redirect('/admindashboard')
+});
+
+
+app.get('/admindashboard', async (req, res) => {
+  const experts = await executeQuery(`SELECT * FROM experts`);
+
+  res.render('admin' , {experts:experts})
+});
+
+app.post('/admin', async (req, res) => {
+  const {name , adminpass} = req.body
+  const admin = await executeQuery(`SELECT * FROM admin WHERE name='${name}' AND pass='${adminpass}'`);
+
+  if (admin.length > 0) {
+    res.redirect('/admindashboard')
+
+  }
+
+});
+
+
+
+app.get('/admin', async (req, res) => {
+    res.render('adminlogin')
+});
+
+
+app.get('/mandi/:number', async (req, res) => {
+  const number = req.params.number
+  const post = await executeQuery(`SELECT * FROM adminposts`);
+
+  res.render('mandi' ,{ phonenumber: number , posts:post})
+});
 
 
 app.listen(7777, () => {

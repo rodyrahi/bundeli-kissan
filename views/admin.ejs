@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+<body style="font-family: 'Rubik', sans-serif;">
+
+  <div class="container">
+
+
+    <h2>Make A Post</h2>
+    <form action="/savepost" method="POST" style="display: contents;" enctype="multipart/form-data">
+
+
+      <div class="form-group mb-2 text-center">
+        <!-- <div class="p-3" style="border: 2px gray dashed;" onclick="getimages()">
+          <i class="fa-solid fa-images text-secondary" style="font-size: 3rem;"></i>
+          <p>Select Images</p>
+
+        </div> -->
+        <input type="file" class="form-control" style="" id="image" name="image" multiple>
+        <div class="m-1" id="image-preview"></div>
+      </div>
+      <div class="form-group mb-2">
+        <label for="query">Message</label>
+        <textarea class="form-control mb-1" id="textInput" name="textInput" rows="5"></textarea>
+
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+
+
+
+    <hr>
+    <div class="row">
+      <form action="/createuser" method="post">
+        <h2>Create Expert</h2>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" name="name" id="name" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Create User</button>
+      </form>
+    </div>
+
+    <hr>
+    <div class="row">
+      <form action="/deleteuser" method="post">
+        <h2>Delete Expert</h2>
+        <div class="mb-3">
+          <label for="deletename" class="form-label">Select User</label>
+          <select class="form-select" name="deletename" id="deletename">
+
+            <option selected disabled>Select a user</option>
+            <% experts.forEach(element => { %>
+            <option value="<%= element.user %>"><%= element.user %></option>
+
+            <% }) %>
+
+
+
+          </select>
+
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+
+  </div>
+  </div>
+
+</body>
+
+</html>
