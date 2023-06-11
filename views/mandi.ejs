@@ -22,7 +22,7 @@
 
               <% const images = element.images.replace(/["\[\]]/g, '').split(','); %>
               <% images.forEach(image => { %>
-                <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
+                <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/admin/<%= image.trim() %>" alt="<%= image.trim() %>">
               <% }) %>
  
 
