@@ -74,7 +74,9 @@ app.post('/upload', upload.array('image'), (req, res) => {
 });
 
 
-
+app.get('/privacy', (req, res) => {
+  res.render('privacy');
+});
 
 app.get('/', (req, res) => {
   res.render('loginpage');
