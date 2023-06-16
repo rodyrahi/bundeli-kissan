@@ -13,11 +13,11 @@
 <body style="font-family: 'Rubik', sans-serif;">
   <%- include('./partials/navbar.ejs') %>
     <div class="container">
-       <div class="col">
+       <div class="col mt-3">
         <% posts.forEach((element , index) => { %>
 
       
-            <div class="p-2 border rounded mb-2" style="background-color: cornsilk;">
+            <div class="p-2 border rounded mb-2" style="background-color: white;">
 
 
               <% const images = element.images.replace(/["\[\]]/g, '').split(','); %>
@@ -33,6 +33,10 @@
     
     </div>
 
+
+    <div class="" style="margin-top: 6rem;">
+      <%- include('./partials/chin.ejs' , {number:phonenumber}) %>
+  </div>
 
 </body>
 
