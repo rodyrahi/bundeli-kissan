@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+const fetch = require('node-fetch');
 var con = require('./database.js');
 const qrcode = require('qrcode-terminal');
-const { Client, LocalAuth } = require('whatsapp-web.js');
+// const { Client, LocalAuth } = require('whatsapp-web.js');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -12,36 +13,36 @@ const { redirect } = require('statuses');
 
 const upload = multer();
 
-const client = new Client({
-  restartOnAuthFail: true,
-  puppeteer: {
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-accelerated-2d-canvas",
-      "--no-first-run",
-      "--no-zygote",
-      "--single-process", // <- this one doesn't work in Windows
-      "--disable-gpu",
-      "--use-gl=egl",
-    ],
-  },
-  authStrategy: new LocalAuth({
-    clientId: 'raj',
-  }),
-});
+// const client = new Client({
+//   restartOnAuthFail: true,
+//   puppeteer: {
+//     headless: true,
+//     args: [
+//       "--no-sandbox",
+//       "--disable-setuid-sandbox",
+//       "--disable-dev-shm-usage",
+//       "--disable-accelerated-2d-canvas",
+//       "--no-first-run",
+//       "--no-zygote",
+//       "--single-process", // <- this one doesn't work in Windows
+//       "--disable-gpu",
+//       "--use-gl=egl",
+//     ],
+//   },
+//   authStrategy: new LocalAuth({
+//     clientId: 'raj',
+//   }),
+// });
 
-client.on('qr', qr => {
-  qrcode.generate(qr, { small: true });
-});
+// client.on('qr', qr => {
+//   qrcode.generate(qr, { small: true });
+// });
 
-client.on('ready', () => {
-  console.log('Client is ready!');
-});
+// client.on('ready', () => {
+//   console.log('Client is ready!');
+// });
 
-client.initialize();
+// client.initialize();
 
 app.set('view engine', 'ejs');
 
@@ -59,6 +60,39 @@ function executeQuery(query) {
     });
   });
 }
+
+
+async function  sendmessage(number , message) {
+  try {
+    
+
+
+    const apiUrl = 'https://wapi.kamingo.in/send-message'; // Replace with the actual API URL
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ number: number, message: message }),
+    });
+
+
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('API Response:', responseData);
+
+    } else {
+      console.error('API Error:', response.status);
+      // Send a JSON response with status 'error'
+    }
+  } catch (error) {
+    console.error('Error:', error);
+
+  }
+}
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -231,10 +265,10 @@ var randomCode;
 
 app.post('/sendcode', async (req, res) => {
   const { phonenumber } = req.body;
-  const number = '+91' + phonenumber;
+  const number = phonenumber;
 
   const generateRandomCode = () => {
-    const codeLength = 6;
+    const codeLength = 4;
     let code = '';
     for (let i = 0; i < codeLength; i++) {
       code += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
@@ -245,22 +279,40 @@ app.post('/sendcode', async (req, res) => {
   randomCode = generateRandomCode();
 
   console.log(number);
-  client
-    .sendMessage(`${+number}@c.us`, randomCode)
-    .then(() => {
-      console.log('Message sent successfully');
-      const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
 
-      if (result.length < 1) {
-        executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
-      }
 
-      res.render('typecode', { number: number });
-    })
-    .catch((error) => {
-      console.error('Error sending message:', error);
-      res.sendStatus(500); // Send an error response to the client
-    });
+  sendmessage(number , randomCode).then(() => {
+        console.log('Message sent successfully');
+        const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
+  
+        if (result.length < 1) {
+          executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
+        }
+  
+        res.render('typecode', { number: number });
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+        res.sendStatus(500); // Send an error response to the client
+      });
+
+
+  // client
+  //   .sendMessage(`${+number}@c.us`, randomCode)
+  //   .then(() => {
+  //     console.log('Message sent successfully');
+  //     const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
+
+  //     if (result.length < 1) {
+  //       executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
+  //     }
+
+  //     res.render('typecode', { number: number });
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error sending message:', error);
+  //     res.sendStatus(500); // Send an error response to the client
+  //   });
 });
 
 app.post('/numberlogin', async (req, res) => {
