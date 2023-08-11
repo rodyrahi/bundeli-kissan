@@ -2,21 +2,25 @@
 <html lang="en">
 <%- include('./partials/header.ejs') %>
 
-<body style="font-family: 'Rubik', sans-serif;   background-image: url('/uploads/pattern3.png'); background-color: white; background-repeat: repeat; background-size: contain;">
+<body style="font-family: 'Rubik', sans-serif; ">
   
-  <div class="container d-flex justify-content-center align-items-center " style="height:60vh;">
+  <div class="container d-flex justify-content-center align-items-center " style="height:80vh;">
     <div class="row">
-      <div class="col bg-light p-2 border rounded shadow">
+      <div class="col  p-2 ">
         <form action="sendcode" method="POST">
           <div class="d-flex justify-content-center mb-3" style="flex-direction: column;">
-            <h1>Enter Your </h1> 
-            <h1>Whatsapp Number</h1>
+            <p class="m-0 mt-5">Enter Your </p> 
+            <p class=" m-0 text-muted" >Whatsapp Number</p>
            
             <input style=" font-size: 1.5rem;" type="tel" name="phonenumber" id="number" class="form-control" placeholder="+91" required>
           
           </div>
-          <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Send Code</button>
+          <div class="d-flex justify-content-start mb-5">
+            <button type="submit" class="btn btn-primary btn-sm shadow">Send Code</button>
+          </div>
+          <hr>
+          <div class="mt-5 text-center">
+            <p class="text-muted" >Build By Kamingo Consultancy 💖 </p>
           </div>
         </form>
       </div>

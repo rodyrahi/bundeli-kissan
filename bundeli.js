@@ -245,7 +245,7 @@ app.post('/sendcode', async (req, res) => {
     return code;
   };
 
-  randomCode = generateRandomCode();
+  randomCode = 'Your Bundeli Kisan Authentication Code is : ' + '*'+generateRandomCode()+'*';
 
   console.log(number);
 
