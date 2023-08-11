@@ -72,7 +72,7 @@ router.post("/sendcode", async (req, res) => {
 
   const message =
     "Your Bundeli Kisan Authentication Code is : " + "*" + randomCode + "*";
-  console.log(number, randomCode);
+
 
   sendmessage(phonenumber, message)
     .then(() => {
