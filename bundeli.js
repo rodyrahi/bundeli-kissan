@@ -1,10 +1,11 @@
 const express = require('express');
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
+
 const app = express();
 const axios = require('axios');
 const fetch = require('node-fetch');
 var con = require('./database.js');
-const qrcode = require('qrcode-terminal');
-// const { Client, LocalAuth } = require('whatsapp-web.js');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -12,11 +13,34 @@ const fs = require('fs');
 
 const upload = multer();
 
+///////////////////////////////////// routes /////////////////////////////////////////
+
+const loginRouter = require("./routes/logins.js");
+const profileRouter = require("./routes/profile.js");
+
+app.use("/", loginRouter);
+app.use("/", profileRouter);
+
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(session({
+  secret: 'your-secret-key',
+  store: new FileStore({
+    path: '/session/bundeli', // Choose a directory to store session files
+    ttl: 86400 // Session expiration time in seconds (optional)
+  }),
+  resave: false,
+  saveUninitialized: true
+}));
+
+
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
@@ -29,7 +53,6 @@ function executeQuery(query) {
     });
   });
 }
-
 
 async function  sendmessage(number , message) {
   try {
@@ -64,12 +87,8 @@ async function  sendmessage(number , message) {
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
 
-// Parse JSON bodies (as sent by API clients)
-app.use(bodyParser.json());
 
-// Handle the POST request
 app.post('/upload', upload.array('image'), (req, res) => {
   // Get the file names
   const fileNames = req.files.map(file => file.originalname);
@@ -85,24 +104,24 @@ app.get('/', (req, res) => {
   res.render('loginpage');
 });
 
-app.get('/createprofile/:number', async (req, res) => {
-  const number = req.params.number;
+app.get('/createprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
   res.render('createprofile', { phonenumber: number });
 });
 
-app.post('/createprofile/:number', async (req, res) => {
-  const number = req.params.number;
+app.post('/createprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
   const { name, fathername, gender, dob, pincode, address } = req.body;
 
   await executeQuery(
     `INSERT INTO kissans (number,name , fathername , gender , dob , pincode , address) VALUES ('${number}','${name}','${fathername}' ,'${gender}' ,'${dob}','${pincode}','${address}')`
   );
 
-  res.redirect('/home/' + number);
+  res.redirect('/home');
 });
 
-app.get('/userprofile/:number', async (req, res) => {
-  const number = req.params.number;
+app.get('/userprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
   const result = await executeQuery(
     `SELECT * FROM kissans WHERE number='${number}'`
   );
@@ -112,8 +131,8 @@ app.get('/userprofile/:number', async (req, res) => {
   res.render('userprofile', { phonenumber: number, user: result[0] });
 });
 
-app.get('/home/:phonenumber', async (req, res) => {
-  const phonenumber = req.params.phonenumber;
+app.get('/home', async (req, res) => {
+  const phonenumber =  req.session.phoneNumber;
   console.log(phonenumber);
 
   try {
@@ -128,8 +147,8 @@ app.get('/home/:phonenumber', async (req, res) => {
   }
 });
 
-app.get('/chat/:number', async (req, res) => {
-  const number = req.params.number;
+app.get('/chat', async (req, res) => {
+  const number =  req.session.phoneNumber;
 
   console.log(number);
   try {
@@ -230,88 +249,7 @@ app.post('/savechat/:number', upload.array('image'), async (req, res) => {
 });
 
 
-var randomCode;
 
-app.post('/sendcode', async (req, res) => {
-  const { phonenumber } = req.body;
-  const number = phonenumber;
-
-  const generateRandomCode = () => {
-    const codeLength = 4;
-    let code = '';
-    for (let i = 0; i < codeLength; i++) {
-      code += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
-    }
-    return code;
-  };
-
-  randomCode = generateRandomCode();
-
-
-  const message = 'Your Bundeli Kisan Authentication Code is : ' + '*'+ randomCode +'*';
-  console.log(number , randomCode);
-
-
-
-  sendmessage(number , message).then(() => {
-        console.log('Message sent successfully');
-        const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
-  
-        if (result.length < 1) {
-          executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
-        }
-  
-        res.render('typecode', { number: number });
-      })
-      .catch((error) => {
-        console.error('Error sending message:', error);
-        res.sendStatus(500); // Send an error response to the client
-      });
-
-
-  // client
-  //   .sendMessage(`${+number}@c.us`, randomCode)
-  //   .then(() => {
-  //     console.log('Message sent successfully');
-  //     const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
-
-  //     if (result.length < 1) {
-  //       executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
-  //     }
-
-  //     res.render('typecode', { number: number });
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error sending message:', error);
-  //     res.sendStatus(500); // Send an error response to the client
-  //   });
-});
-
-app.post('/numberlogin', async (req, res) => {
-  const { code, phonenumber } = req.body;
-
-  const user = await executeQuery(
-    `SELECT * FROM kissans WHERE number='${phonenumber}'`
-  );
-
-  if (code === randomCode) {
-    if (user.length > 0) {
-      res.redirect('/home/' + phonenumber);
-    } else {
-      res.redirect('/createprofile/' + phonenumber);
-    }
-  } else {
-    res.render('whatsapplogin');
-  }
-});
-
-app.get('/whatsapplogin', async (req, res) => {
-  res.render('whatsapplogin');
-});
-
-app.get('/expertlogin', async (req, res) => {
-  res.render('expertlogin');
-});
 
 app.get('/expert', async (req, res) => {
   const chats = await executeQuery('SELECT * FROM chats');
@@ -337,28 +275,7 @@ app.post('/expertreply', async (req, res) => {
 
 });
 
-app.post('/expertlogin', async (req, res) => {
 
-  const {name , password} = req.body
-
-
-  const expert = await executeQuery(`SELECT * FROM experts WHERE user='${name}' AND pass='${password}'`)
-
-  console.log(expert);
-
-
-  if (expert.length > 0) {
-
-    res.redirect('/expert');
-
-
-  }else{
-    res.redirect('/');
-
-  }
-
-
-});
 
 app.get('/notification/:number', async (req, res) => {
   const number = req.params.number
@@ -466,8 +383,8 @@ app.get('/admin', async (req, res) => {
 });
 
 
-app.get('/mandi/:number', async (req, res) => {
-  const number = req.params.number
+app.get('/mandi', async (req, res) => {
+  const number =  req.session.phoneNumber
   const post = await executeQuery(`SELECT * FROM adminposts`);
 
   res.render('mandi' ,{ phonenumber: number , posts:post})
