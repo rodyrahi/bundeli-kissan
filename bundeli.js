@@ -26,8 +26,10 @@ app.use("/", profileRouter);
 
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(session({
