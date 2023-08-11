@@ -245,12 +245,14 @@ app.post('/sendcode', async (req, res) => {
     return code;
   };
 
-  randomCode = 'Your Bundeli Kisan Authentication Code is : ' + '*'+generateRandomCode()+'*';
+  randomCode = generateRandomCode();
 
+
+  const message = 'Your Bundeli Kisan Authentication Code is : ' + '*'+generateRandomCode()+'*';
   console.log(number);
 
 
-  sendmessage(number , randomCode).then(() => {
+  sendmessage(number , message).then(() => {
         console.log('Message sent successfully');
         const result = executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
   
