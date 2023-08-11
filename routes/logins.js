@@ -2,6 +2,8 @@ const express = require("express");
 var router = express.Router();
 const session = require("express-session");
 const FileStore = require('session-file-store')(session);
+var con = require("../database.js");
+const fetch = require('node-fetch');
 
 
 var randomCode;
@@ -78,14 +80,14 @@ router.post("/sendcode", async (req, res) => {
     .then(() => {
       console.log("Message sent successfully");
       const result = executeQuery(
-        `SELECT * FROM chats WHERE number='${number}'`
+        `SELECT * FROM chats WHERE number='${phonenumber}'`
       );
 
       if (result.length < 1) {
-        executeQuery(`INSERT INTO chats (number) VALUES ('${number}')`);
+        executeQuery(`INSERT INTO chats (number) VALUES ('${phonenumber}')`);
       }
 
-      res.render("typecode", { number: number });
+      res.render("logins/typecode", { number: phonenumber});
     })
     .catch((error) => {
       console.error("Error sending message:", error);
@@ -102,21 +104,21 @@ router.post("/numberlogin", async (req, res) => {
 
   if (code === randomCode) {
     if (user.length > 0) {
-      res.redirect("/home/" + phonenumber);
+      res.redirect("/home");
     } else {
-      res.redirect("/createprofile/" + phonenumber);
+      res.redirect("/createprofile");
     }
   } else {
-    res.render("whatsapplogin");
+    res.render("logins/whatsapplogin");
   }
 });
 
 router.get("/whatsapplogin", async (req, res) => {
-  res.render("whatsapplogin");
+  res.render("logins/whatsapplogin");
 });
 
 router.get("/expertlogin", async (req, res) => {
-  res.render("expertlogin");
+  res.render("logins/expertlogin");
 });
 
 router.post("/expertlogin", async (req, res) => {
