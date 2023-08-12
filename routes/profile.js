@@ -45,7 +45,32 @@ async function  sendmessage(number , message) {
   }
 }
 
+app.get('/createprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
+  res.render('createprofile', { phonenumber: number });
+});
 
+app.post('/createprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
+  const { name, fathername, gender, dob, pincode, address } = req.body;
+
+  await executeQuery(
+    `INSERT INTO kissans (number,name , fathername , gender , dob , pincode , address) VALUES ('${number}','${name}','${fathername}' ,'${gender}' ,'${dob}','${pincode}','${address}')`
+  );
+
+  res.redirect('/home');
+});
+
+app.get('/userprofile', async (req, res) => {
+  const number =  req.session.phoneNumber;
+  const result = await executeQuery(
+    `SELECT * FROM kissans WHERE number='${number}'`
+  );
+
+  console.log(result);
+
+  res.render('userprofile', { phonenumber: number, user: result[0] });
+});
 
 
 
