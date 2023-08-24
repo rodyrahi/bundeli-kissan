@@ -24,4 +24,29 @@ connection.connect((err) => {
   }
   
 });
-module.exports = connection;
+
+function executeQuery(query) {
+  return new Promise((resolve, reject) => {
+    con.query(query, (err, result, fields) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+}
+
+
+async function find(table , el , el2) {
+  const result = await executeQuery(`SELECT * FROM ${table} WHERE  ${el} = '${el2}' `)
+  if (result.length > 0) {
+    return result
+  }
+  return false
+}
+
+
+
+module.exports = connection ;

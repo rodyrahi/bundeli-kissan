@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 var router = express.Router();
+var con = require('../database.js');
+
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
@@ -45,12 +47,18 @@ async function  sendmessage(number , message) {
   }
 }
 
-app.get('/createprofile', async (req, res) => {
+router.get('/createprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
-  res.render('createprofile', { phonenumber: number });
+  if (con.find('kissan' , 'number' , number )) {
+    res.redirect('/home');
+
+  }else{
+    res.render('profiles/createprofile', { phonenumber: number });
+
+  }
 });
 
-app.post('/createprofile', async (req, res) => {
+router.post('/createprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
   const { name, fathername, gender, dob, pincode, address } = req.body;
 
@@ -61,7 +69,7 @@ app.post('/createprofile', async (req, res) => {
   res.redirect('/home');
 });
 
-app.get('/userprofile', async (req, res) => {
+router.get('/userprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
   const result = await executeQuery(
     `SELECT * FROM kissans WHERE number='${number}'`
