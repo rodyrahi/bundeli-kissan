@@ -5,7 +5,7 @@ const FileStore = require('session-file-store')(session);
 const app = express();
 const axios = require('axios');
 const fetch = require('node-fetch');
-var con = require('./database.js');
+var dbs = require('./database.js');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -46,7 +46,7 @@ app.use(session({
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
-    con.query(query, (err, result, fields) => {
+    dbs.con.query(query, (err, result, fields) => {
       if (err) {
         reject(err);
       } else {

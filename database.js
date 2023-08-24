@@ -49,4 +49,4 @@ async function find(table , el , el2) {
 
 
 
-module.exports = connection ;
+module.exports = {con:connection ,find:find} ;

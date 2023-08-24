@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 var router = express.Router();
-var con = require('../database.js');
+var dbs = require('../database.js');
 
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
-    con.query(query, (err, result, fields) => {
+    dbs.con.query(query, (err, result, fields) => {
       if (err) {
         reject(err);
       } else {
@@ -49,7 +49,7 @@ async function  sendmessage(number , message) {
 
 router.get('/createprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
-  if (con.find('kissan' , 'number' , number )) {
+  if (dbs.find('kissan' , 'number' , number )) {
     res.redirect('/home');
 
   }else{
