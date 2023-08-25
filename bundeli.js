@@ -254,8 +254,8 @@ app.post('/expertreply', async (req, res) => {
 
 
 
-app.get('/notification/:number', async (req, res) => {
-  const number = req.params.number
+app.get('/notification', async (req, res) => {
+  const number = req.session.phoneNumber
   const chats = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
 
   res.render('notification', { phonenumber: number , chats:chats})
