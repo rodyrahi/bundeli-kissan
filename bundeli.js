@@ -368,6 +368,18 @@ app.get('/mandi', async (req, res) => {
 });
 
 
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+      if (err) {
+          console.error('Error destroying session:', err);
+      } else {
+          console.log('Session destroyed');
+      }
+      res.redirect('/');
+  });
+});
+
 app.listen(7777, () => {
   console.log('Server is running on port 7777');
 });
