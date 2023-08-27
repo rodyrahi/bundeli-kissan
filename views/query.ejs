@@ -29,7 +29,7 @@
             <div class="tab-pane fade show active" id="nav-unsolved" role="tabpanel" aria-labelledby="nav-unsolved-tab">
                 <% chats.forEach((element, index) => { %>
                     <% if (element.status === 'unsolved') { %>
-                        <div class="p-1 m-1 mb-2 shadow border" style=" border-radius: 0.5rem;">
+                        <div class="p-1 m-1 mb-2 shadow border bg-light" style=" border-radius: 0.5rem;">
                             <h4 class="m-1 mb-2"><%= element.name %></h4>
                             <p class="m-1 mb-2 text-wrap text-break"><%= element.chat %></p>
 
