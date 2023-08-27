@@ -32,15 +32,16 @@
                         <div class="p-1 m-1 mb-2 shadow border" style=" border-radius: 0.5rem;">
                             <h4 class="m-1 mb-2"><%= element.name %></h4>
                             <p class="m-1 mb-2 text-wrap text-break"><%= element.chat %></p>
-                            <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
-                                <i class="fa-solid fa-eye"></i> View Image
-                            </a>
+
                             <div class="collapse" id="collapse<%= index %>">
                                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                                 <% images.forEach(image => { %>
                                     <img style="object-fit: scale-down; width: 100%; max-width: 300px;" src="/uploads/<%= image.trim() %>" alt="<%= image.trim() %>">
                                 <% }) %>
                             </div>
+                            <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
+                                <i class="fa-solid fa-eye"></i> View Image
+                            </a>
                         </div>
                     <% } %>
                 <% }) %>
