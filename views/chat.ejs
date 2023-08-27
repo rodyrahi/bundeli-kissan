@@ -38,7 +38,13 @@
           <a class=" btn btn-success" id="speechButton"><i class="fas fa-microphone m-1 " style="font-size: 1.7rem;"></i></a>
 
         </div>
-        <button class="btn btn-primary" onclick="create(this)">Create</button>
+        <div class="align-items-center d-flex ">
+        <button class="btn btn-primary me-2" onclick="create(this)">Create</button>
+        <div class="spinner-border text-primary visually-hidden" role="status" id="spinner" style="width: 25px; height: 25px;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+
+      </div>
       </form>
 
     </div>
@@ -130,7 +136,7 @@
 function create(btn) {
   btn.classList.add('disabled');
   btn.disabled = true; // This actually disables the button
-
+  document.getElementById('spinner').classList.remove('visually-hidden')
   // Assuming the button is within a form, you can submit the form after disabling the button
   const form = btn.closest('form');
   if (form) {
