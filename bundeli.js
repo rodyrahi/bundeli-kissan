@@ -113,6 +113,10 @@ app.get('/home', async (req, res) => {
   const phonenumber =  req.session.phoneNumber;
   console.log(phonenumber);
 
+
+  if (req.session.phoneNumber) {
+    
+
   try {
     const response = await axios.get(
       'https://api.openweathermap.org/data/2.5/weather?id=1273587&appid=404ae0fc6125b1b2ac81edc980993a31'
@@ -124,6 +128,13 @@ app.get('/home', async (req, res) => {
     console.log('Error:', error);
     res.sendStatus(500); // Send an error response to the client
   }
+
+
+}
+
+else{
+  res.redirect('/')
+}
 });
 
 app.get('/chat', async (req, res) => {

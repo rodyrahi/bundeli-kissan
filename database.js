@@ -27,7 +27,7 @@ connection.connect((err) => {
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
-    con.query(query, (err, result, fields) => {
+    connection.query(query, (err, result, fields) => {
       if (err) {
         reject(err);
       } else {
