@@ -77,7 +77,7 @@ router.get('/userprofile', async (req, res) => {
 
   console.log(result);
 
-  res.render('userprofile', { phonenumber: number, user: result[0] });
+  res.render('profiles/userprofile', { phonenumber: number, user: result[0] });
 });
 
 
