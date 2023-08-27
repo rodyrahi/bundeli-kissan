@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-
+const { exec } = require('child_process');
 const app = express();
 const axios = require('axios');
 const fetch = require('node-fetch');
@@ -197,8 +197,8 @@ app.get('/query', async (req, res) => {
 });
 
 
-app.post('/savechat/:number', upload.array('image'), async (req, res) => {
-  const number = req.params.number;
+app.post('/savechat', upload.array('image'), async (req, res) => {
+  const number = req.session.phoneNumber;
   const fileNames = req.files.map(file => file.originalname);
   const files = req.files;
 
@@ -207,7 +207,7 @@ app.post('/savechat/:number', upload.array('image'), async (req, res) => {
   const { textInput } = req.body;
 
   const name = await executeQuery(
-    `SELECT name FROM kissans WHERE number='${number}'`
+    `SELECT name FROM kissans WHERE number='${'+91'+number}'`
   );
 
 
@@ -236,7 +236,22 @@ app.post('/savechat/:number', upload.array('image'), async (req, res) => {
     `INSERT INTO chats (chat, number, name, image) VALUES ('${textInput}', '${number}', '${name[0].name}', '${fileNames}')`
   );
 
-  res.redirect('/query/' + number);
+  const scriptPath = './public/compress_images.sh'; // Update this with the actual path to your script
+
+  exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+          console.error(`Error executing the script: ${error}`);
+          return;
+      }
+  
+      console.log(`Script output:\n${stdout}`);
+  
+      if (stderr) {
+          console.error(`Script errors:\n${stderr}`);
+      }
+  });
+
+  res.redirect('/query');
 });
 
 
@@ -270,7 +285,7 @@ app.post('/expertreply', async (req, res) => {
 
 app.get('/notification', async (req, res) => {
   const number = req.session.phoneNumber
-  const chats = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
+  const chats = await executeQuery(`SELECT * FROM chats WHERE number='${'+91'+number}'`);
 
   res.render('notification', { phonenumber: number , chats:chats})
 });
@@ -330,6 +345,20 @@ app.post('/savepost', upload.array('image'), async (req, res) => {
     `INSERT INTO adminposts (message, images) VALUES ('${textInput}', '${fileNames}')`
   );
 
+  const scriptPath = './public/compress_images.sh'; // Update this with the actual path to your script
+
+exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+    if (error) {
+        console.error(`Error executing the script: ${error}`);
+        return;
+    }
+
+    console.log(`Script output:\n${stdout}`);
+
+    if (stderr) {
+        console.error(`Script errors:\n${stderr}`);
+    }
+});
   res.redirect('/admindashboard')
 });
 
