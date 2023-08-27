@@ -13,10 +13,12 @@
 
           <div class="d-flex justify-content-between mb-1  ">
             <div>
-              <h2 class="display-2"><strong><%=parseInt(weather.main.temp-273.15) %>°C</strong></h2>
+              <% var roundedTemperature = Math.ceil(parseInt(weather.main.temp - 273.15)); %>
+              <h2 class="display-2"><strong><%= roundedTemperature %>°C</strong></h2>
               <p class="text-primary mb-0"><%= weather.weather[0].main %></p>
 
-              <p class=" text-info mb-0">Madhya Pradesh</p>
+              <p class=" text-info mb-0"><%= weather.name %></p>
+            
               <p class="m-0" id="date" >Date</p>
             </div>
             <div class="tex">
@@ -29,7 +31,7 @@
                 <i class="fas fa-cloud-sun" style="font-size: 2.5rem;"></i>
                 <% } else if (weather.weather[0].icon === '02n') { %>
                 <i class="fas fa-cloud-moon" style="font-size: 2.5rem;"></i>
-                <% } else if (weather.weather[0].icon === '03d' || weather.weather[0].icon === '03n' || weather.weather[0].icon === '04d' || weather.weather[0].icon === '04n') { %>
+                <% } else if (weather.weather[0].icon === '03d' || weather.weather[0].icon === '03n') { %>
                 <i class="fas fa-cloud" style="font-size: 2.5rem;"></i>
                 <% } else if (weather.weather[0].icon === '09d' || weather.weather[0].icon === '09n') { %>
                 <i class="fas fa-cloud-showers-heavy" style="font-size: 2.5rem;"></i>
@@ -41,7 +43,11 @@
                 <i class="fas fa-snowflake" style="font-size: 2.5rem;"></i>
                 <% } else if (weather.weather[0].icon === '50d' || weather.weather[0].icon === '50n') { %>
                 <i class="fas fa-smog" style="font-size: 2.5rem;"></i>
+                <% } else if (weather.weather[0].icon === '04d' || weather.weather[0].icon === '04n') { %>
+                  <i class="fa-solid fa-cloud-sun" style="font-size: 2.5rem;"></i>
+
                 <% } %>
+                
               </div>
             </div>
           </div>

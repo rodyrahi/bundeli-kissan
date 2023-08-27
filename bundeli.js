@@ -115,9 +115,10 @@ app.get('/home', async (req, res) => {
 
   try {
     const response = await axios.get(
-      'https://api.openweathermap.org/data/2.5/weather?id=1264542&appid=404ae0fc6125b1b2ac81edc980993a31'
+      'https://api.openweathermap.org/data/2.5/weather?id=1273587&appid=404ae0fc6125b1b2ac81edc980993a31'
     );
 
+    console.log(response.data.weather);
     res.render('home', { weather: response.data, phonenumber: phonenumber });
   } catch (error) {
     console.log('Error:', error);
