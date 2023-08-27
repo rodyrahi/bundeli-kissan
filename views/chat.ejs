@@ -38,7 +38,7 @@
           <a class=" btn btn-success" id="speechButton"><i class="fas fa-microphone m-1 " style="font-size: 1.7rem;"></i></a>
 
         </div>
-        <button type="submit" class="btn btn-primary" onclick="create(this)">Create</button>
+        <button class="btn btn-primary" onclick="create(this)">Create</button>
       </form>
 
     </div>
@@ -130,6 +130,12 @@
 function create(btn) {
   btn.classList.add('disabled');
   btn.disabled = true; // This actually disables the button
+
+  // Assuming the button is within a form, you can submit the form after disabling the button
+  const form = btn.closest('form');
+  if (form) {
+    form.submit();
+  }
 }
 </script>
 
