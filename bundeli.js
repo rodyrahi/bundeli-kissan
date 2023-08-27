@@ -236,7 +236,7 @@ app.post('/savechat', upload.array('image'), async (req, res) => {
     `INSERT INTO chats (chat, number, name, image) VALUES ('${textInput}', '${number}', '${name[0].name}', '${fileNames}')`
   );
 
-  const scriptPath = './public/compress_images.sh'; // Update this with the actual path to your script
+  const scriptPath = './public/uploads/compress.sh'; // Update this with the actual path to your script
 
   exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
       if (error) {
@@ -345,7 +345,7 @@ app.post('/savepost', upload.array('image'), async (req, res) => {
     `INSERT INTO adminposts (message, images) VALUES ('${textInput}', '${fileNames}')`
   );
 
-  const scriptPath = './public/compress_images.sh'; // Update this with the actual path to your script
+  const scriptPath = './public/uploads/compress.sh'; // Update this with the actual path to your script
 
 exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
     if (error) {
