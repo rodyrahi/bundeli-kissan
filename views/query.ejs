@@ -33,7 +33,7 @@
                             <h4 class="m-1 mb-2"><%= element.name %></h4>
                             <p class="m-1 mb-2 text-wrap text-break"><%= element.chat %></p>
                             <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
-                                View Image
+                                <i class="fa-solid fa-eye"></i> View Image
                             </a>
                             <div class="collapse" id="collapse<%= index %>">
                                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
@@ -53,7 +53,7 @@
                             <h4 class="m-1 mb-2"><%= element.name %></h4>
                             <p class="m-1 mb-2 text-wrap text-break"><%= element.chat %></p>
                             <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
-                                View Image
+                                <i class="fa-solid fa-eye"></i> View Image
                             </a>
                             <div class="collapse" id="collapse<%= index %>">
                                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
@@ -74,7 +74,7 @@
                     <% if (element.name === name) { %>
                         <div class="p-2 border rounded mb-2 bg-white" style="">
                             <a class="btn btn-primary btn-sm mb-2 " style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
-                                View Image
+                                <i class="fa-solid fa-eye"></i> View Image
                             </a>
                             <div class="collapse" id="collapse<%= index %>">
                                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
