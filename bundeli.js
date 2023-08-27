@@ -155,8 +155,8 @@ app.get('/chat', async (req, res) => {
 });
 
 
-app.get('/delete/:number/:id', async (req, res) => {
-  const number = req.params.number;
+app.get('/delete/:id', async (req, res) => {
+  // const number = req.session.phoneNumber;
   const id = req.params.id;
 
   const imagesResult = await executeQuery(
@@ -179,7 +179,7 @@ app.get('/delete/:number/:id', async (req, res) => {
     `DELETE FROM chats WHERE id='${id}'`
   );
 
-  res.redirect('/query/' + number);
+  res.redirect('/query');
 });
 
 
