@@ -377,7 +377,7 @@ app.get('/logout', (req, res) => {
       } else {
           console.log('Session destroyed');
       }
-      res.redirect('/');
+      res.render('partials/logoutwarning')
   });
 });
 
