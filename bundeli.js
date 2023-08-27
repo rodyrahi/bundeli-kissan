@@ -5,7 +5,7 @@ const FileStore = require('session-file-store')(session);
 const app = express();
 const axios = require('axios');
 const fetch = require('node-fetch');
-var con = require('./database.js');
+var dbs = require('./database.js');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -47,7 +47,7 @@ app.use(session({
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
-    con.query(query, (err, result, fields) => {
+    dbs.con.query(query, (err, result, fields) => {
       if (err) {
         reject(err);
       } else {
@@ -255,8 +255,8 @@ app.post('/expertreply', async (req, res) => {
 
 
 
-app.get('/notification/:number', async (req, res) => {
-  const number = req.params.number
+app.get('/notification', async (req, res) => {
+  const number = req.session.phoneNumber
   const chats = await executeQuery(`SELECT * FROM chats WHERE number='${number}'`);
 
   res.render('notification', { phonenumber: number , chats:chats})
@@ -368,6 +368,18 @@ app.get('/mandi', async (req, res) => {
   res.render('mandi' ,{ phonenumber: number , posts:post})
 });
 
+
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+      if (err) {
+          console.error('Error destroying session:', err);
+      } else {
+          console.log('Session destroyed');
+      }
+      res.redirect('/');
+  });
+});
 
 app.listen(7777, () => {
   console.log('Server is running on port 7777');

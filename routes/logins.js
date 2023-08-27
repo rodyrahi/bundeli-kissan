@@ -2,7 +2,7 @@ const express = require("express");
 var router = express.Router();
 const session = require("express-session");
 const FileStore = require('session-file-store')(session);
-var con = require("../database.js");
+var dbs = require("../database.js");
 const fetch = require('node-fetch');
 
 
@@ -22,7 +22,7 @@ router.use(session({
 
 function executeQuery(query) {
   return new Promise((resolve, reject) => {
-    con.query(query, (err, result, fields) => {
+    dbs.con.query(query, (err, result, fields) => {
       if (err) {
         reject(err);
       } else {
