@@ -49,7 +49,7 @@ async function  sendmessage(number , message) {
 
 router.get('/createprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
-  if (dbs.find('kissan' , 'number' , number )) {
+  if (dbs.find('kissans' , 'number' , number )) {
     res.redirect('/home');
 
   }else{

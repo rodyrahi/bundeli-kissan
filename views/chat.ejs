@@ -38,7 +38,7 @@
           <a class=" btn btn-success" id="speechButton"><i class="fas fa-microphone m-1 " style="font-size: 1.7rem;"></i></a>
 
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary" onclick="create(this)">Create</button>
       </form>
 
     </div>
@@ -125,6 +125,13 @@
   }
 </style>
 
+
+<script>
+function create(btn) {
+  btn.classList.add('disabled');
+  btn.disabled = true; // This actually disables the button
+}
+</script>
 
 
 
