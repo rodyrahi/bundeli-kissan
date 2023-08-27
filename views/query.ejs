@@ -52,9 +52,7 @@
                         <div class="p-1 m-1 mb-2 shadow bg-white border" style="border-radius: 0.5rem;">
                             <h4 class="m-1 mb-2"><%= element.name %></h4>
                             <p class="m-1 mb-2 text-wrap text-break"><%= element.chat %></p>
-                            <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
-                                Read More..
-                            </a>
+
                             <div class="collapse" id="collapse<%= index %>">
                                 <% const images = element.image.replace(/["\[\]]/g, '').split(','); %>
                                 <% images.forEach(image => { %>
@@ -64,6 +62,9 @@
                                     <p class="text-break"><%= element.reply %></p>
                                 </div>
                             </div>
+                            <a class="btn btn-primary btn-sm mb-2 m-1" style="font-size: 0.7rem;" data-bs-toggle="collapse" href="#collapse<%= index %>" role="button" aria-expanded="false" aria-controls="collapse<%= index %>">
+                                Read More..
+                            </a>
                         </div>
                     <% } %>
                 <% }) %>
