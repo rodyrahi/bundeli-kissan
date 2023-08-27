@@ -71,8 +71,10 @@ router.post('/createprofile', async (req, res) => {
 
 router.get('/userprofile', async (req, res) => {
   const number =  req.session.phoneNumber;
+
+  
   const result = await executeQuery(
-    `SELECT * FROM kissans WHERE number='${number}'`
+    `SELECT * FROM kissans WHERE number='${'+91'+number}'`
   );
 
   console.log(result);
