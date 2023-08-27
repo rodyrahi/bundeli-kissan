@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Do You Want To Logout ? </p>
-    <a href="/deletesession">logout</a>
+    <%- include('header.ejs') %>
+
+    
+    <title>Logout Page</title>
+
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center m-2 ">
+        <h2>Do You Want To Logout?</h2>
+        <a href="/deletesession" class="btn btn-dark  mt-3">Logout</a>
+    </div>
 </body>
 </html>
