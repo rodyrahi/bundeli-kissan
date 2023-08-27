@@ -184,14 +184,15 @@ app.get('/delete/:number/:id', async (req, res) => {
 
 
 
-app.get('/query/:number', async (req, res) => {
-  const number = req.params.number;
+app.get('/query', async (req, res) => {
+  const number =  req.session.phoneNumber;
 
   const chats = await executeQuery('SELECT * FROM chats');
 
   const name = await executeQuery(
-    `SELECT name FROM kissans WHERE number='${number}'`
+    `SELECT name FROM kissans WHERE number='${'+91'+number}'`
   );
+  console.log(name);
   res.render('query', { chats: chats  , name:name[0].name , phonenumber:number} );
 });
 
