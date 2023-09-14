@@ -103,6 +103,7 @@ app.get('/privacy', (req, res) => {
   res.render('privacy');
 });
 
+
 app.get('/', (req, res) => {
   if (req.session.phoneNumber) {
     res.redirect('/home')
@@ -408,6 +409,17 @@ app.get('/admin', async (req, res) => {
     res.render('logins/adminlogin')
 });
 
+app.post('/url', async(req, res) => {
+
+  console.log(req.body);
+  
+  await executeQuery(
+    `UPDATE adminposts SET url = '${req.body.url}' WHERE name = 'admin'`
+  );
+  
+  res.redirect('admindashboard');
+});
+
 
 app.get('/mandi', async (req, res) => {
   const number =  req.session.phoneNumber
@@ -429,6 +441,12 @@ app.get('/deletesession', (req, res) => {
 
       res.redirect('/')
   });
+});
+
+app.get('/video', async (req, res) => {
+  const post = await executeQuery(`SELECT * FROM adminposts`);
+
+  res.redirect(`${post[0].url}`)
 });
 
 
