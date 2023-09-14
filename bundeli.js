@@ -104,7 +104,13 @@ app.get('/privacy', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('loginpage');
+  if (req.session.phoneNumber) {
+    res.redirect('/home')
+  }
+  else{
+    res.render('loginpage');
+
+  }
 });
 
 
