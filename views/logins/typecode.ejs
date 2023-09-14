@@ -10,7 +10,7 @@
         <form action="numberlogin" method="POST">
           <div class="d-flex justify-content-center mb-3" style="flex-direction: column;">
             <p class="text-muted m-0 " >Enter Code</p> 
-            <input style=" font-size: 1.5rem;" type="number" name="code" id="code" class="form-control" placeholder="CODE" required>
+            <input style=" font-size: 1.5rem;" type="number" name="code" id="code" maxlength="4" class="form-control" placeholder="CODE" required>
             <input type="tel" name="phonenumber" value="<%= number %>" style="display: none;">
           </div>
           <div class="d-flex justify-content-start">
