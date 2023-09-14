@@ -399,7 +399,7 @@ app.post('/admin', async (req, res) => {
 
 
 app.get('/admin', async (req, res) => {
-    res.render('adminlogin')
+    res.render('logins/adminlogin')
 });
 
 
